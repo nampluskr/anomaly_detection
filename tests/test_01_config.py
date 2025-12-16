@@ -2,12 +2,6 @@ import os
 import pytest
 
 
-@pytest.fixture(scope="session")
-def config():
-    from anomaly_detection.config import load_config
-    return load_config("configs/paths.yaml")
-
-
 def test_config_is_dict(config):
     assert isinstance(config, dict)
 
