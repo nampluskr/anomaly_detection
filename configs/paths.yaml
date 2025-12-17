@@ -3,7 +3,9 @@
 # ==========================================
 
 # Project root (pytest 실행 기준)
-PROJECT_ROOT: ${PWD}
+# PROJECT_ROOT: ${PWD}
+# PROJECT_ROOT: /home/namu/myspace/NAMU/projects/anomaly_detection_main
+PROJECT_ROOT: /mnt/d/github/anomaly_detection
 
 # Source code
 SOURCE_DIR: ${PROJECT_ROOT}/src

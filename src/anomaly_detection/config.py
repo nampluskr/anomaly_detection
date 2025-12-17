@@ -1,3 +1,4 @@
+# src/anomaly_detection/config.py
 import os
 import re
 import yaml
@@ -45,3 +46,10 @@ def load_config(path):
         context[key] = substituted
 
     return resolved
+
+
+def merge_configs(*configs):
+    merged = {}
+    for config in configs:
+        merged.update(config)
+    return merged
