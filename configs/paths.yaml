@@ -1,42 +1,26 @@
-# ==========================================
-# Project Path Configuration
-# ==========================================
+# 경로 설정
+project_root: ${PWD}
 
-# Project root (pytest 실행 기준)
-# PROJECT_ROOT: ${PWD}
-# PROJECT_ROOT: /home/namu/myspace/NAMU/projects/anomaly_detection_main
-PROJECT_ROOT: /mnt/d/github/anomaly_detection
+# 소스 코드
+source_dir: ${project_root}/src
+package_dir: ${source_dir}/anomaly_detection
 
-# Source code
-SOURCE_DIR: ${PROJECT_ROOT}/src
-PACKAGE_DIR: ${SOURCE_DIR}/anomaly_detection
+# 외부 데이터 (절대 경로)
+dataset_root: /mnt/d/deep_learning/datasets
+mvtec_dir: ${dataset_root}/mvtec
+visa_dir: ${dataset_root}/visa
+btad_dir: ${dataset_root}/btad
 
-# =========================
-# Fixed external resources
-# =========================
+# 백본 가중치 (절대 경로)
+backbone_root: /mnt/d/deep_learning/backbones
 
-# Datasets (absolute path)
-DATASET_ROOT: /mnt/d/deep_learning/datasets
-MVTec_DIR: ${DATASET_ROOT}/mvtec
-VISA_DIR: ${DATASET_ROOT}/visa
-BTAD_DIR: ${DATASET_ROOT}/btad
+# 실험 출력
+output_root: ${project_root}/outputs
+checkpoint_dir: ${output_root}/checkpoints
+result_dir: ${output_root}/results
+log_dir: ${output_root}/logs
 
-# Pretrained backbones (absolute path)
-BACKBONE_DIR: /mnt/d/deep_learning/backbones
-
-# =========================
-# Experiment outputs
-# =========================
-
-OUTPUT_ROOT: ${PROJECT_ROOT}/outputs
-CHECKPOINT_DIR: ${OUTPUT_ROOT}/checkpoints
-RESULT_DIR: ${OUTPUT_ROOT}/results
-LOG_DIR: ${OUTPUT_ROOT}/logs
-
-# =========================
-# Others
-# =========================
-
-EXPERIMENT_DIR: ${PROJECT_ROOT}/experiments
-NOTEBOOK_DIR: ${PROJECT_ROOT}/notebooks
-DOCS_DIR: ${PROJECT_ROOT}/docs
+# 기타
+experiment_dir: ${project_root}/experiments
+notebook_dir: ${project_root}/notebooks
+docs_dir: ${project_root}/docs

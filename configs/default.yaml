@@ -1,0 +1,12 @@
+# configs/default.yaml
+
+training:
+  batch_size: 32
+  num_workers: 4
+  device: cuda
+  seed: 42
+
+evaluation:
+  batch_size: 32
+  metrics: [auroc, f1]
+  save_visualizations: true

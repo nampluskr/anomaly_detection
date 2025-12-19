@@ -96,28 +96,30 @@ class BaseTestDataset:
 class TestMVTecDataset(BaseTestDataset):
     @classmethod
     def setup_class(cls):
-        from anomaly_detection.datasets import MVTecDataset
+        from anomaly_detection.data.datasets import MVTecDataset
         cls.DatasetClass = MVTecDataset
-        cls.root_key = "MVTec_DIR"
+        cls.root_key = "MVTEC_DIR"
         cls.category = "bottle"
+        cls.transform = T.Compose([T.Resize((256, 256)), T.ToTensor()])
+        cls.img_size = 256
         cls.test_label_set = {0, 1}
 
 
-# class TestViSADataset(BaseTestDataset):
-#     @classmethod
-#     def setup_class(cls):
-#         from anomaly_detection.datasets import ViSADataset
-#         cls.DatasetClass = ViSADataset
-#         cls.root_key = "VISA_DIR"
-#         cls.category = "candle"
-#         cls.test_label_set = {1}
+class TestViSADataset(BaseTestDataset):
+    @classmethod
+    def setup_class(cls):
+        from anomaly_detection.data.datasets import ViSADataset
+        cls.DatasetClass = ViSADataset
+        cls.root_key = "VISA_DIR"
+        cls.category = "candle"
+        cls.test_label_set = {1}
 
 
-# class TestBTADDataset(BaseTestDataset):
-#     @classmethod
-#     def setup_class(cls):
-#         from anomaly_detection.datasets import BTADDataset
-#         cls.DatasetClass = BTADDataset
-#         cls.root_key = "BTAD_DIR"
-#         cls.category = "01"
-#         cls.test_label_set = {0, 1}
+class TestBTADDataset(BaseTestDataset):
+    @classmethod
+    def setup_class(cls):
+        from anomaly_detection.data.datasets import BTADDataset
+        cls.DatasetClass = BTADDataset
+        cls.root_key = "BTAD_DIR"
+        cls.category = "01"
+        cls.test_label_set = {0, 1}

@@ -1,0 +1,12 @@
+model:
+  name: stfpm
+  backbone: resnet18
+  layers: [layer1, layer2, layer3]
+
+training:
+  epochs: 100
+  learning_rate: 0.4
+  weight_decay: 0.0001
+  optimizer:
+    type: sgd
+    momentum: 0.9
