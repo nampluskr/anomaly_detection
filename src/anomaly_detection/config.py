@@ -87,21 +87,16 @@ def merge_configs(*configs):
 
 
 def load_experiment_config(model_name, dataset_name, config_dir="configs"):
-    # Load paths config with absolute path resolution
-    paths_cfg = load_config(os.path.join(config_dir, "paths.yaml"), resolve_paths=True)
+    paths_config = load_config(os.path.join(config_dir, "paths.yaml"), resolve_paths=True)
+    default_config = load_config(os.path.join(config_dir, "default.yaml"), resolve_paths=False)
 
-    # Load default config
-    default_cfg = load_config(os.path.join(config_dir, "default.yaml"), resolve_paths=False)
+    dataset_config_path = os.path.join(config_dir, "datasets", f"{dataset_name}.yaml")
+    dataset_config = load_config(dataset_config_path, resolve_paths=False) if os.path.exists(dataset_config_path) else {}
 
-    # Load dataset config if exists
-    dataset_cfg_path = os.path.join(config_dir, "datasets", f"{dataset_name}.yaml")
-    dataset_cfg = load_config(dataset_cfg_path, resolve_paths=False) if os.path.exists(dataset_cfg_path) else {}
+    model_config_path = os.path.join(config_dir, "models", f"{model_name}.yaml")
+    model_config = load_config(model_config_path, resolve_paths=False) if os.path.exists(model_config_path) else {}
 
-    # Load model config if exists
-    model_cfg_path = os.path.join(config_dir, "models", f"{model_name}.yaml")
-    model_cfg = load_config(model_cfg_path, resolve_paths=False) if os.path.exists(model_cfg_path) else {}
-
-    return merge_configs(paths_cfg, default_cfg, dataset_cfg, model_cfg)
+    return merge_configs(paths_config, default_config, dataset_config, model_config)
 
 
 def save_config(config, path):

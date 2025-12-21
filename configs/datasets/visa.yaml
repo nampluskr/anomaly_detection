@@ -1,24 +1,64 @@
 # configs/datasets/visa.yaml
+# ViSA dataset specific configurations
 
-name: visa
-categories:
-  - candle
-  - capsules
-  - cashew
-  - chewinggum
-  - fryum
-  - macaroni1
-  - macaroni2
-  - pcb1
-  - pcb2
-  - pcb3
-  - pcb4
-  - pipe_fryum
+dataset:
+  name: visa
+  type: ViSADataset
+  
+  # Categories (12 total)
+  categories:
+    - candle
+    - capsules
+    - cashew
+    - chewinggum
+    - fryum
+    - macaroni1
+    - macaroni2
+    - pcb1
+    - pcb2
+    - pcb3
+    - pcb4
+    - pipe_fryum
+  
+  # Default category for testing
+  default_category: candle
+  
+  # CSV file for splits
+  csv_file: split_csv/1cls.csv
+  
+  # Data splits (defined in CSV)
+  splits:
+    train: train
+    test: test
+  
+  # Image format
+  image_format: JPG
+  
+  # Mask settings
+  mask:
+    available: true
+    format: png
 
-image_size: 256
-normalization:
-  mean: [0.485, 0.456, 0.406]
-  std: [0.229, 0.224, 0.225]
+# Dataset-specific data configurations
+data:
+  image_size: 256
+  
+  # ViSA-specific transforms
+  transforms:
+    train:
+      resize: 256
+      random_rotation: 5
+      color_jitter:
+        brightness: 0.1
+        contrast: 0.1
+    
+    test:
+      resize: 256
+      center_crop: 256
 
-split_ratio: 0.8
-annotation_file: image_anno.csv
+# DataLoader settings (override defaults if needed)
+dataloader:
+  train:
+    batch_size: 32
+  test:
+    batch_size: 32

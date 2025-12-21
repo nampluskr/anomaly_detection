@@ -1,8 +1,7 @@
 # 경로 설정
 project_root: ${PWD}
-
-# 소스 코드
 source_dir: ${project_root}/src
+config_dir: ${project_root}/configs
 package_dir: ${source_dir}/anomaly_detection
 
 # 외부 데이터 (절대 경로)
@@ -14,13 +13,13 @@ btad_dir: ${dataset_root}/btad
 # 백본 가중치 (절대 경로)
 backbone_root: /mnt/d/deep_learning/backbones
 
-# 실험 출력
+# Output paths
 output_root: ${project_root}/outputs
 checkpoint_dir: ${output_root}/checkpoints
 result_dir: ${output_root}/results
 log_dir: ${output_root}/logs
 
-# 기타
+# etc
 experiment_dir: ${project_root}/experiments
 notebook_dir: ${project_root}/notebooks
 docs_dir: ${project_root}/docs

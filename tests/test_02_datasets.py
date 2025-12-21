@@ -98,7 +98,7 @@ class TestMVTecDataset(BaseTestDataset):
     def setup_class(cls):
         from anomaly_detection.data.datasets import MVTecDataset
         cls.DatasetClass = MVTecDataset
-        cls.root_key = "MVTEC_DIR"
+        cls.root_key = "mvtec_dir"
         cls.category = "bottle"
         cls.transform = T.Compose([T.Resize((256, 256)), T.ToTensor()])
         cls.img_size = 256
@@ -110,7 +110,7 @@ class TestViSADataset(BaseTestDataset):
     def setup_class(cls):
         from anomaly_detection.data.datasets import ViSADataset
         cls.DatasetClass = ViSADataset
-        cls.root_key = "VISA_DIR"
+        cls.root_key = "visa_dir"
         cls.category = "candle"
         cls.test_label_set = {1}
 
@@ -120,6 +120,6 @@ class TestBTADDataset(BaseTestDataset):
     def setup_class(cls):
         from anomaly_detection.data.datasets import BTADDataset
         cls.DatasetClass = BTADDataset
-        cls.root_key = "BTAD_DIR"
+        cls.root_key = "btad_dir"
         cls.category = "01"
         cls.test_label_set = {0, 1}

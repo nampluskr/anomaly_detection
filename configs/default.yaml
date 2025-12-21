@@ -1,12 +1,89 @@
 # configs/default.yaml
+# Default configurations for anomaly detection framework
 
+# Data configurations
+data:
+  image_size: 256
+  normalization:
+    mean: [0.485, 0.456, 0.406]  # ImageNet mean
+    std: [0.229, 0.224, 0.225]    # ImageNet std
+
+# DataLoader configurations
+dataloader:
+  # Platform-specific settings (auto-detected)
+  # Windows: num_workers=0, pin_memory=False, persistent_workers=False
+  # Linux: num_workers=8, pin_memory=True, persistent_workers=True
+  
+  # Training DataLoader
+  train:
+    batch_size: 32
+    shuffle: true
+    drop_last: true
+    # num_workers: auto  # Platform-specific
+    # pin_memory: auto   # Platform-specific
+    # persistent_workers: auto  # Platform-specific
+  
+  # Test/Validation DataLoader
+  test:
+    batch_size: 32
+    shuffle: false
+    drop_last: false
+    # num_workers: auto  # Platform-specific
+    # pin_memory: auto   # Platform-specific
+    # persistent_workers: auto  # Platform-specific
+  
+  # Manual override (optional)
+  # Uncomment to override platform defaults
+  # override:
+  #   num_workers: 4
+  #   pin_memory: true
+  #   persistent_workers: true
+
+# Training configurations
 training:
-  batch_size: 32
-  num_workers: 4
-  device: cuda
-  seed: 42
+  num_epochs: 100
+  early_stopping:
+    enabled: true
+    patience: 10
+    min_delta: 0.001
+  
+  # Checkpoint
+  checkpoint:
+    save_interval: 10  # Save every N epochs
+    save_best: true
+    metric: image_auroc  # Metric for best model selection
+  
+  # Logging
+  logging:
+    log_interval: 10  # Log every N batches
+    tensorboard: true
 
+# Evaluation configurations
 evaluation:
-  batch_size: 32
-  metrics: [auroc, f1]
-  save_visualizations: true
+  metrics:
+    - image_auroc
+    - pixel_auroc
+    - image_f1
+  
+  threshold:
+    method: adaptive  # or 'fixed'
+    value: 0.5  # Used when method='fixed'
+  
+  visualization:
+    save_images: true
+    num_samples: 10  # Number of samples to visualize
+
+# Device configurations
+device:
+  type: cuda  # 'cuda' or 'cpu'
+  gpu_id: 0   # GPU device ID (if multiple GPUs)
+
+# Reproducibility
+seed: 42
+deterministic: false  # Set to true for reproducible results (may slow down)
+
+# Logging
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  save_to_file: true

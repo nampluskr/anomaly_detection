@@ -1,12 +1,88 @@
+# configs/models/stfpm.yaml
+# STFPM (Student-Teacher Feature Pyramid Matching) model configurations
+
 model:
   name: stfpm
-  backbone: resnet18
-  layers: [layer1, layer2, layer3]
+  type: STFPMModel
+  
+  # Backbone
+  backbone: resnet18  # resnet18, resnet50, wide_resnet50_2
+  pretrained: true
+  
+  # Feature layers for extraction
+  layers:
+    - layer1
+    - layer2
+    - layer3
+  
+  # Model-specific settings
+  feature_dim: 256  # Feature dimension after projection
 
+# Loss function
+loss:
+  type: STFPMLoss
+  
+  # Loss weights
+  weights:
+    feature: 1.0  # Feature matching loss weight
+
+# Training configurations
 training:
-  epochs: 100
-  learning_rate: 0.4
-  weight_decay: 0.0001
+  # Optimizer
   optimizer:
-    type: sgd
+    type: SGD
+    lr: 0.4
     momentum: 0.9
+    weight_decay: 0.0001
+  
+  # Learning rate scheduler
+  scheduler:
+    type: StepLR
+    step_size: 40
+    gamma: 0.1
+  
+  # Training parameters
+  num_epochs: 100
+  
+  # Early stopping
+  early_stopping:
+    enabled: true
+    patience: 10
+    metric: image_auroc
+
+# DataLoader settings (STFPM-specific)
+dataloader:
+  train:
+    batch_size: 32
+    shuffle: true
+    drop_last: true
+  
+  test:
+    batch_size: 32
+    shuffle: false
+    drop_last: false
+
+# Evaluation settings
+evaluation:
+  # Anomaly map generation
+  anomaly_map:
+    method: multiply  # multiply or add
+    sigma: 4  # Gaussian blur sigma
+  
+  # Metrics to compute
+  metrics:
+    - image_auroc
+    - pixel_auroc
+    - image_f1
+  
+  # Threshold
+  threshold:
+    method: adaptive
+
+# Inference settings
+inference:
+  image_size: 256
+  
+  # Output settings
+  save_anomaly_maps: true
+  save_visualizations: true
